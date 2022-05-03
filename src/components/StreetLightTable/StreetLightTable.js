@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
-import styles from "./StreetLightTable.css";
+import { useState, useEffect, useCallback } from "react";
+// import styles from "./StreetLightTable.css";
 
 const StreetLightTable = () => {
   const [data, setData] = useState();
   const [pageno, setPageNo] = useState(1);
   const [gotopage, setGoToPage] = useState();
 
-  const getData = async () => {
+  const getData = useCallback(async () => {
     const response = await fetch(
-      `https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=10&page_no=${pageno}`
+      `https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=1&page_no=${pageno}`
     );
     setData(await response.json());
-  };
+  }, [pageno]);
 
   const goToPage = (e) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ const StreetLightTable = () => {
   useEffect(() => {
     // Update the document title using the browser API
     getData();
-  }, [pageno]);
+  }, [pageno, getData]);
 
   return (
     <div>
