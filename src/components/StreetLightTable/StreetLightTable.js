@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-// import styles from "./StreetLightTable.css";
+import styles from "./StreetLightTable.module.css";
 
 const StreetLightTable = () => {
   const [data, setData] = useState();
@@ -8,7 +8,7 @@ const StreetLightTable = () => {
 
   const getData = useCallback(async () => {
     const response = await fetch(
-      `https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=1&page_no=${pageno}`
+      `https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=10&page_no=${pageno}`
     );
     setData(await response.json());
   }, [pageno]);
@@ -36,9 +36,10 @@ const StreetLightTable = () => {
 
   return (
     <div>
+      <h3>Street Light Table</h3>
       {data ? (
         <div>
-          <table>
+          <table className={styles.table}>
             <thead>
               <tr>
                 <th>ID</th>
@@ -114,7 +115,7 @@ const StreetLightTable = () => {
           </form>
         </div>
       ) : (
-        <h1>Loading ...</h1>
+        <h3>Loading ...</h3>
       )}
     </div>
   );
