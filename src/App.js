@@ -1,4 +1,5 @@
 import "./App.css";
+import MapComponent from "./components/MapComponent/MapComponent";
 import PieChartComponent from "./components/PieChartComponent/PieChartComponent";
 import StreetLightTable from "./components/StreetLightTable/StreetLightTable";
 import Card from "./components/ui/Card/Card";
@@ -21,6 +22,9 @@ function App() {
           />
         </Card>
       </div>
+      <Card>
+        <MapComponent />
+      </Card>
     </div>
   );
 }
