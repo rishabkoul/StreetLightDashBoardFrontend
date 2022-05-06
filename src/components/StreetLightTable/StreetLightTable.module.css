@@ -2,9 +2,12 @@
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
-    height: 300px;
+    max-height: 300px;
     display: block;
   overflow-y: scroll;
+  }
+  button{
+    cursor: pointer;
   }
   
   .table td, .table th {
@@ -22,4 +25,12 @@
     text-align: left;
     background-color: #04AA6D;
     color: white;
+  }
+
+  .searchInput{
+    margin-bottom: 10px;
+  }
+
+  .downloadButton{
+    margin-left: 10px;
   }

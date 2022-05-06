@@ -1,17 +1,19 @@
 import { useState, useEffect, useCallback } from "react";
 import styles from "./StreetLightTable.module.css";
+import { CSVLink } from "react-csv";
 
 const StreetLightTable = () => {
   const [data, setData] = useState();
   const [pageno, setPageNo] = useState(1);
   const [gotopage, setGoToPage] = useState();
+  const [query, setQuery] = useState("");
 
   const getData = useCallback(async () => {
     const response = await fetch(
-      `https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=10&page_no=${pageno}`
+      `https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=10&page_no=${pageno}&query=${query}`
     );
     setData(await response.json());
-  }, [pageno]);
+  }, [pageno, query]);
 
   const goToPage = (e) => {
     e.preventDefault();
@@ -32,11 +34,21 @@ const StreetLightTable = () => {
   useEffect(() => {
     // Update the document title using the browser API
     getData();
-  }, [pageno, getData]);
+  }, [pageno, query, getData]);
 
   return (
     <div>
       <h3>Street Light Table</h3>
+      <input
+        className={styles.searchInput}
+        placeholder="Search on Textual Data"
+        type="text"
+        onChange={(e) => {
+          setData(null);
+          setPageNo(1);
+          setQuery(e.target.value);
+        }}
+      />
       {data ? (
         <div>
           <table className={styles.table}>
@@ -112,6 +124,14 @@ const StreetLightTable = () => {
               placeholder="Enter Page no to Visit"
             ></input>
             <button type="submit">Go</button>
+            <CSVLink
+              filename={"Streetlights.csv"}
+              data={data[0]["Streetlights"]}
+            >
+              <button className={styles.downloadButton} type="button">
+                Download Data
+              </button>
+            </CSVLink>
           </form>
         </div>
       ) : (
