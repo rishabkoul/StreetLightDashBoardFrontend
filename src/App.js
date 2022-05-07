@@ -23,7 +23,11 @@ function App() {
         </Card>
       </div>
       <Card>
-        <MapComponent />
+        <MapComponent
+          heading="Devices with States Ok vs Not Ok (Red - Not Ok , Green - Ok)"
+          url="https://streetlightdashboardbackend.herokuapp.com/api/get_all_states_with_lon_lat"
+          collection="states_with_lon_lat"
+        />
       </Card>
     </div>
   );

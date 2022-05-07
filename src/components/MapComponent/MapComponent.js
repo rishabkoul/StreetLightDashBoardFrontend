@@ -1,56 +1,73 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Map from "../../Map";
 import { Layers, TileLayer, VectorLayer } from "../../Layers";
 import { Style, Icon } from "ol/style";
 import Feature from "ol/Feature";
 import Point from "ol/geom/Point";
 import { osm, vector } from "../../Source";
-import { fromLonLat, get } from "ol/proj";
+import { fromLonLat } from "ol/proj";
 
 import { Controls, FullScreenControl } from "../../Controls";
-
-import mapConfig from "../../config.json";
-// import "./App.css";
-
-const markersLonLat = [mapConfig.kansasCityLonLat, mapConfig.blueSpringsLonLat];
+import RedDot from "../../images/red_dot.png";
+import GreenDot from "../../images/green_dot.png";
 
 function addMarkers(lonLatArray) {
-  var iconStyle = new Style({
-    image: new Icon({
-      anchorXUnits: "fraction",
-      anchorYUnits: "pixels",
-      src: mapConfig.markerImage32,
-    }),
-  });
   let features = lonLatArray.map((item) => {
     let feature = new Feature({
-      geometry: new Point(fromLonLat(item)),
+      geometry: new Point(
+        fromLonLat([
+          parseFloat(item[0].replace("'", "")),
+          parseFloat(item[1].replace("'", "")),
+        ])
+      ),
     });
-    feature.setStyle(iconStyle);
+    feature.setStyle(
+      new Style({
+        image: new Icon({
+          anchorXUnits: "fraction",
+          anchorYUnits: "pixels",
+          src: item[2] === "'OK'" ? GreenDot : RedDot,
+        }),
+      })
+    );
     return feature;
   });
   return features;
 }
 
-const MapComponent = () => {
-  const [center, setCenter] = useState(mapConfig.center);
-  const [zoom, setZoom] = useState(9);
+const MapComponent = ({ heading, url, collection }) => {
+  const center = [77.320017, 28.6515797];
+  const zoom = 12;
 
-  const [showMarker, setShowMarker] = useState(true);
+  const [features, setFeatures] = useState();
 
-  const [features, setFeatures] = useState(addMarkers(markersLonLat));
+  const getData = useCallback(() => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((actualData) => setFeatures(addMarkers(actualData[0][collection])));
+  }, [url, collection]);
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    getData();
+  }, [url, getData]);
 
   return (
     <div>
-      <Map center={fromLonLat(center)} zoom={zoom}>
-        <Layers>
-          <TileLayer source={osm()} zIndex={0} />
-          {showMarker && <VectorLayer source={vector({ features })} />}
-        </Layers>
-        <Controls>
-          <FullScreenControl />
-        </Controls>
-      </Map>
+      <h3>{heading}</h3>
+      {features ? (
+        <Map center={fromLonLat(center)} zoom={zoom}>
+          <Layers>
+            <TileLayer source={osm()} zIndex={0} />
+            <VectorLayer source={vector({ features })} />
+          </Layers>
+          <Controls>
+            <FullScreenControl />
+          </Controls>
+        </Map>
+      ) : (
+        <h3>Loading ...</h3>
+      )}
     </div>
   );
 };
