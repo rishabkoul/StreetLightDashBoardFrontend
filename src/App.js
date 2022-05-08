@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import MapComponent from "./components/MapComponent/MapComponent";
 import PieChartComponent from "./components/PieChartComponent/PieChartComponent";
 import StreetLightTable from "./components/StreetLightTable/StreetLightTable";
@@ -20,6 +20,16 @@ function App() {
             url="https://streetlightdashboardbackend.herokuapp.com/api/get_all_states"
             collection="states"
           />
+          <div className="states_legend">
+            <div>
+              <div className="states_legend_green"></div>
+              <span>Ok</span>
+            </div>
+            <div>
+              <div className="states_legend_red"></div>
+              <span>Not Ok</span>
+            </div>
+          </div>
         </Card>
       </div>
       <Card>

@@ -38,7 +38,11 @@ const PieChartComponent = ({ heading, url, collection }) => {
               color: "red",
             },
           ]}
-          label={({ dataEntry }) => dataEntry.title}
+          label={({ dataEntry }) =>
+            `${dataEntry.value}, ${parseFloat(
+              (dataEntry.value / data[0][collection].length) * 100
+            ).toFixed(2)}%`
+          }
           labelStyle={{ fontSize: "10px", fill: "white" }}
         />
       ) : (
