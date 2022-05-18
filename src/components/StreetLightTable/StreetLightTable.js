@@ -67,6 +67,7 @@ const StreetLightTable = () => {
                 <th>LON</th>
                 <th>DRY_BIN</th>
                 <th>WET_BIN</th>
+                <th>DATE</th>
                 <th>TIME_STAMP</th>
               </tr>
             </thead>
@@ -87,6 +88,7 @@ const StreetLightTable = () => {
                     <td>{streetlight.LON}</td>
                     <td>{streetlight.DRY_BIN}</td>
                     <td>{streetlight.WET_BIN}</td>
+                    <td>{streetlight.DATE}</td>
                     <td>{streetlight.TIME_STAMP}</td>
                   </tr>
                 );
