@@ -7,13 +7,15 @@ const StreetLightTable = () => {
   const [pageno, setPageNo] = useState(1);
   const [gotopage, setGoToPage] = useState();
   const [query, setQuery] = useState("");
+  const [url, setUrl] = useState(
+    "https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=10"
+  );
+  const [lightId, setLightId] = useState("");
 
   const getData = useCallback(async () => {
-    const response = await fetch(
-      `https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=10&page_no=${pageno}&query=${query}`
-    );
+    const response = await fetch(`${url}&page_no=${pageno}&query=${query}`);
     setData(await response.json());
-  }, [pageno, query]);
+  }, [pageno, query, url]);
 
   const goToPage = (e) => {
     e.preventDefault();
@@ -34,11 +36,75 @@ const StreetLightTable = () => {
   useEffect(() => {
     // Update the document title using the browser API
     getData();
-  }, [pageno, query, getData]);
+  }, [pageno, query, url, getData]);
 
   return (
     <div>
       <h3>Street Light Table</h3>
+      {url !==
+      "https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=10" ? (
+        <div>
+          <button
+            type="button"
+            onClick={(e) => {
+              setData(null);
+              setPageNo(1);
+              setUrl(
+                "https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=10"
+              );
+              setLightId("");
+            }}
+          >
+            See All
+          </button>
+          <h4>Light Id: {lightId}</h4>
+          <h4>Latest Data:</h4>
+          {data ? (
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>BV</th>
+                  <th>BI</th>
+                  <th>SV</th>
+                  <th>SI</th>
+                  <th>LV</th>
+                  <th>LI</th>
+                  <th>BA</th>
+                  <th>STATE</th>
+                  <th>LAT</th>
+                  <th>LON</th>
+                  <th>DRY_BIN</th>
+                  <th>WET_BIN</th>
+                  <th>DATE</th>
+                  <th>TIME_STAMP</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{data[0]["latest_data"].ID}</td>
+                  <td>{data[0]["latest_data"].BV}</td>
+                  <td>{data[0]["latest_data"].BI}</td>
+                  <td>{data[0]["latest_data"].SV}</td>
+                  <td>{data[0]["latest_data"].SI}</td>
+                  <td>{data[0]["latest_data"].LV}</td>
+                  <td>{data[0]["latest_data"].LI}</td>
+                  <td>{data[0]["latest_data"].BA}</td>
+                  <td>{data[0]["latest_data"].STATE}</td>
+                  <td>{data[0]["latest_data"].LAT}</td>
+                  <td>{data[0]["latest_data"].LON}</td>
+                  <td>{data[0]["latest_data"].DRY_BIN}</td>
+                  <td>{data[0]["latest_data"].WET_BIN}</td>
+                  <td>{data[0]["latest_data"].DATE}</td>
+                  <td>{data[0]["latest_data"].TIME_STAMP}</td>
+                </tr>
+              </tbody>
+            </table>
+          ) : (
+            <h3>Loading...</h3>
+          )}
+        </div>
+      ) : null}
       <input
         className={styles.searchInput}
         placeholder="Search on Textual Data"
@@ -74,8 +140,30 @@ const StreetLightTable = () => {
             <tbody>
               {data[0]["Streetlights"].map((streetlight) => {
                 return (
-                  <tr key={streetlight.ID}>
-                    <td>{streetlight.ID}</td>
+                  <tr key={streetlight.DATE + streetlight.TIME_STAMP}>
+                    {url !==
+                    `https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=10` ? (
+                      <td>{streetlight.ID}</td>
+                    ) : (
+                      <td>
+                        <button
+                          className={styles.buttonToLink}
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setData(null);
+                            setPageNo(1);
+                            setUrl(
+                              `https://streetlightdashboardbackend.herokuapp.com/api/get_all_historical_data?no_of_results_per_page=10&light_id=${streetlight.ID}`
+                            );
+                            setLightId(`${streetlight.ID}`);
+                          }}
+                        >
+                          {streetlight.ID}
+                        </button>
+                      </td>
+                    )}
+
                     <td>{streetlight.BV}</td>
                     <td>{streetlight.BI}</td>
                     <td>{streetlight.SV}</td>

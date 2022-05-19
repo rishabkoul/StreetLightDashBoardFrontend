@@ -29,8 +29,20 @@
 
   .searchInput{
     margin-bottom: 10px;
+    margin-top: 10px;
   }
 
   .downloadButton{
     margin-left: 10px;
+  }
+
+  .buttonToLink{
+    background: none!important;
+  border: none;
+  padding: 0!important;
+  
+  /*input has OS specific font-family*/
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
   }
