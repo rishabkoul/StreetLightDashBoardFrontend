@@ -38,12 +38,32 @@ const PieChartComponent = ({ heading, url, collection }) => {
               color: "red",
             },
           ]}
-          label={({ dataEntry }) =>
-            `${dataEntry.value}, ${parseFloat(
-              (dataEntry.value / data[0][collection].length) * 100
-            ).toFixed(2)}%`
-          }
-          labelStyle={{ fontSize: "10px", fill: "white" }}
+          label={({ dataEntry }) => {
+            if (dataEntry.value === 0) {
+              return null;
+            } else {
+              return `${dataEntry.value}, ${parseFloat(
+                (dataEntry.value / data[0][collection].length) * 100
+              ).toFixed(2)}%`;
+            }
+          }}
+          animate
+          animationDuration={500}
+          animationEasing="ease-out"
+          center={[50, 50]}
+          lengthAngle={360}
+          lineWidth={15}
+          paddingAngle={0}
+          radius={50}
+          rounded
+          startAngle={0}
+          viewBoxSize={[100, 100]}
+          labelPosition={65}
+          labelStyle={{
+            fontSize: "7px",
+            fontColor: "FFFFFA",
+            fontWeight: "800",
+          }}
         />
       ) : (
         <h3>Loading...</h3>
