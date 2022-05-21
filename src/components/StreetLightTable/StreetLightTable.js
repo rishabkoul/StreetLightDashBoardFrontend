@@ -21,9 +21,9 @@ const StreetLightTable = () => {
   const getWholeData = useCallback(async () => {
     let urlToFetch;
     if (lightId === "") {
-      urlToFetch = `http://streetlightdashboardbackend.herokuapp.com/api/get_all_data_without_pagination?query=${query}`;
+      urlToFetch = `https://streetlightdashboardbackend.herokuapp.com/api/get_all_data_without_pagination?query=${query}`;
     } else {
-      urlToFetch = `http://streetlightdashboardbackend.herokuapp.com/api/get_all_historical_data_without_pagination?query=${query}&light_id=${lightId}`;
+      urlToFetch = `https://streetlightdashboardbackend.herokuapp.com/api/get_all_historical_data_without_pagination?query=${query}&light_id=${lightId}`;
     }
     const response = await fetch(`${urlToFetch}`);
     setWholeData(await response.json());
