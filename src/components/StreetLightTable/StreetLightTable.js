@@ -11,11 +11,23 @@ const StreetLightTable = () => {
     "https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=10"
   );
   const [lightId, setLightId] = useState("");
+  const [wholeData, setWholeData] = useState();
 
   const getData = useCallback(async () => {
     const response = await fetch(`${url}&page_no=${pageno}&query=${query}`);
     setData(await response.json());
   }, [pageno, query, url]);
+
+  const getWholeData = useCallback(async () => {
+    let urlToFetch;
+    if (lightId === "") {
+      urlToFetch = `http://streetlightdashboardbackend.herokuapp.com/api/get_all_data_without_pagination?query=${query}`;
+    } else {
+      urlToFetch = `http://streetlightdashboardbackend.herokuapp.com/api/get_all_historical_data_without_pagination?query=${query}&light_id=${lightId}`;
+    }
+    const response = await fetch(`${urlToFetch}`);
+    setWholeData(await response.json());
+  }, [query, lightId]);
 
   const goToPage = (e) => {
     e.preventDefault();
@@ -37,6 +49,10 @@ const StreetLightTable = () => {
     // Update the document title using the browser API
     getData();
   }, [pageno, query, url, getData]);
+
+  useEffect(() => {
+    getWholeData();
+  }, [getWholeData, query, lightId]);
 
   return (
     <div>
@@ -214,14 +230,16 @@ const StreetLightTable = () => {
               placeholder="Enter Page no to Visit"
             ></input>
             <button type="submit">Go</button>
-            <CSVLink
-              filename={"Streetlights.csv"}
-              data={data[0]["Streetlights"]}
-            >
-              <button className={styles.downloadButton} type="button">
-                Download Data
-              </button>
-            </CSVLink>
+            {wholeData && (
+              <CSVLink
+                filename={"Streetlights.csv"}
+                data={wholeData[0]["Streetlights"]}
+              >
+                <button className={styles.downloadButton} type="button">
+                  Download Data
+                </button>
+              </CSVLink>
+            )}
           </form>
         </div>
       ) : (
