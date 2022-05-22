@@ -240,7 +240,12 @@ const StreetLightTable = () => {
             <button type="submit">Go</button>
             {wholeData && (
               <CSVLink
-                filename={"Streetlights.csv"}
+                filename={`Streetlights_${lightId}_${new Date().getFullYear()}/${
+                  new Date().getMonth() + 1
+                }/${String(new Date().getDate()).padStart(
+                  2,
+                  "0"
+                )},${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}.csv`}
                 data={wholeData[0]["Streetlights"]}
               >
                 <button className={styles.downloadButton} type="button">
