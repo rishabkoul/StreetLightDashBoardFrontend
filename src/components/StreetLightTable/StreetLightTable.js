@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import styles from "./StreetLightTable.module.css";
 import { CSVLink } from "react-csv";
 
@@ -12,6 +12,7 @@ const StreetLightTable = () => {
   );
   const [lightId, setLightId] = useState("");
   const [wholeData, setWholeData] = useState();
+  const searchRef = useRef();
 
   const getData = useCallback(async () => {
     const response = await fetch(`${url}&page_no=${pageno}&query=${query}`);
@@ -71,7 +72,7 @@ const StreetLightTable = () => {
               setLightId("");
             }}
           >
-            See All
+            Back
           </button>
           <h4>Light Id: {lightId}</h4>
           <h4>Latest Data:</h4>
@@ -125,12 +126,19 @@ const StreetLightTable = () => {
         className={styles.searchInput}
         placeholder="Search on Textual Data"
         type="text"
-        onChange={(e) => {
-          setData(null);
-          setPageNo(1);
-          setQuery(e.target.value);
-        }}
+        ref={searchRef}
       />
+      <button
+        type="button"
+        onClick={(e) => {
+          setData(null);
+          setWholeData(null);
+          setPageNo(1);
+          setQuery(searchRef.current.value);
+        }}
+      >
+        Search
+      </button>
       {data ? (
         <div>
           <table className={styles.table}>
