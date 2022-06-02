@@ -29,7 +29,7 @@ const StreetLightTable = () => {
   const [gotopage, setGoToPage] = useState();
   const [query, setQuery] = useState("");
   const [url, setUrl] = useState(
-    "https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=10"
+    "https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=40"
   );
   const [lightId, setLightId] = useState("");
   const [wholeData, setWholeData] = useState();
@@ -80,7 +80,7 @@ const StreetLightTable = () => {
     <div>
       <h3>Street Light Table</h3>
       {url !==
-      "https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=10" ? (
+      "https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=40" ? (
         <div>
           <button
             type="button"
@@ -88,7 +88,7 @@ const StreetLightTable = () => {
               setData(null);
               setPageNo(1);
               setUrl(
-                "https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=10"
+                "https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=40"
               );
               setLightId("");
             }}
@@ -125,15 +125,15 @@ const StreetLightTable = () => {
               <tbody>
                 <tr>
                   <td>{data[0]["latest_data"].ID}</td>
-                  <td>{data[0]["latest_data"].BV}</td>
-                  <td>{data[0]["latest_data"].BI}</td>
-                  <td>{data[0]["latest_data"].BW}</td>
-                  <td>{data[0]["latest_data"].SV}</td>
-                  <td>{data[0]["latest_data"].SI}</td>
-                  <td>{data[0]["latest_data"].SW}</td>
-                  <td>{data[0]["latest_data"].LV}</td>
-                  <td>{data[0]["latest_data"].LI}</td>
-                  <td>{data[0]["latest_data"].LW}</td>
+                  <td>{parseFloat(data[0]["latest_data"].BV).toFixed(2)}</td>
+                  <td>{parseFloat(data[0]["latest_data"].BI).toFixed(2)}</td>
+                  <td>{parseFloat(data[0]["latest_data"].BW).toFixed(2)}</td>
+                  <td>{parseFloat(data[0]["latest_data"].SV).toFixed(2)}</td>
+                  <td>{parseFloat(data[0]["latest_data"].SI).toFixed(2)}</td>
+                  <td>{parseFloat(data[0]["latest_data"].SW).toFixed(2)}</td>
+                  <td>{parseFloat(data[0]["latest_data"].LV).toFixed(2)}</td>
+                  <td>{parseFloat(data[0]["latest_data"].LI).toFixed(2)}</td>
+                  <td>{parseFloat(data[0]["latest_data"].LW).toFixed(2)}</td>
 
                   <td>{data[0]["latest_data"].STATE}</td>
                   <td>{data[0]["latest_data"].LAT}</td>
@@ -200,7 +200,7 @@ const StreetLightTable = () => {
                 return (
                   <tr key={streetlight.DATE + streetlight.TIME_STAMP}>
                     {url !==
-                    `https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=10` ? (
+                    `https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=40` ? (
                       <td>{streetlight.ID}</td>
                     ) : (
                       <td>
@@ -212,7 +212,7 @@ const StreetLightTable = () => {
                             setData(null);
                             setPageNo(1);
                             setUrl(
-                              `https://streetlightdashboardbackend.herokuapp.com/api/get_all_historical_data?no_of_results_per_page=10&light_id=${streetlight.ID}`
+                              `https://streetlightdashboardbackend.herokuapp.com/api/get_all_historical_data?no_of_results_per_page=40&light_id=${streetlight.ID}`
                             );
                             setLightId(`${streetlight.ID}`);
                           }}
@@ -222,15 +222,15 @@ const StreetLightTable = () => {
                       </td>
                     )}
 
-                    <td>{streetlight.BV}</td>
-                    <td>{streetlight.BI}</td>
-                    <td>{streetlight.BW}</td>
-                    <td>{streetlight.SV}</td>
-                    <td>{streetlight.SI}</td>
-                    <td>{streetlight.SW}</td>
-                    <td>{streetlight.LV}</td>
-                    <td>{streetlight.LI}</td>
-                    <td>{streetlight.LW}</td>
+                    <td>{parseFloat(streetlight.BV).toFixed(2)}</td>
+                    <td>{parseFloat(streetlight.BI).toFixed(2)}</td>
+                    <td>{parseFloat(streetlight.BW).toFixed(2)}</td>
+                    <td>{parseFloat(streetlight.SV).toFixed(2)}</td>
+                    <td>{parseFloat(streetlight.SI).toFixed(2)}</td>
+                    <td>{parseFloat(streetlight.SW).toFixed(2)}</td>
+                    <td>{parseFloat(streetlight.LV).toFixed(2)}</td>
+                    <td>{parseFloat(streetlight.LI).toFixed(2)}</td>
+                    <td>{parseFloat(streetlight.LW).toFixed(2)}</td>
 
                     <td>{streetlight.STATE}</td>
                     <td>{streetlight.LAT}</td>

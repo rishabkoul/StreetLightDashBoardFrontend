@@ -36,7 +36,7 @@ function addMarkers(lonLatArray) {
 }
 
 const MapComponent = ({ heading, url, collection }) => {
-  const center = [77.320017, 28.6515797];
+  const center = [77.094742, 28.502879];
   const zoom = 12;
 
   const [features, setFeatures] = useState();

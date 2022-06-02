@@ -3,12 +3,16 @@ import MapComponent from "./components/MapComponent/MapComponent";
 import PieChartComponent from "./components/PieChartComponent/PieChartComponent";
 import StreetLightTable from "./components/StreetLightTable/StreetLightTable";
 import Card from "./components/ui/Card/Card";
+import HSL_LOGO from "./images/HSL LOGO.jpg";
 
 function App() {
   return (
     <div className="dashboard">
       <Card center_text="true">
-        <h1>Street Light Dashboard</h1>
+        <div className="flex-container-logo-heading">
+          <img className="logo" src={HSL_LOGO} alt="HSL Logo" />
+          <h1>Solar LED Street Light Dashboard</h1>
+        </div>
       </Card>
 
       <Card>
