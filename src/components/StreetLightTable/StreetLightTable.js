@@ -104,19 +104,20 @@ const StreetLightTable = () => {
                   <th>ID</th>
                   <th>Battery Voltage</th>
                   <th>Battery Current</th>
+                  <th>Battery Wattage</th>
                   <th>Solar Voltage</th>
                   <th>Solar Current</th>
+                  <th>Solar Wattage</th>
                   <th>Load Voltage</th>
                   <th>Load Current</th>
+                  <th>Load Wattage</th>
 
                   <th>Battery Status</th>
                   <th>Latitude</th>
                   <th>Longitude</th>
                   <th>Charging Status</th>
                   <th>Day/Night</th>
-                  <th>Battery Wattage</th>
-                  <th>Solar Wattage</th>
-                  <th>Load Wattage</th>
+
                   <th>DATE</th>
                   <th>TIME_STAMP</th>
                 </tr>
@@ -126,19 +127,20 @@ const StreetLightTable = () => {
                   <td>{data[0]["latest_data"].ID}</td>
                   <td>{data[0]["latest_data"].BV}</td>
                   <td>{data[0]["latest_data"].BI}</td>
+                  <td>{data[0]["latest_data"].BW}</td>
                   <td>{data[0]["latest_data"].SV}</td>
                   <td>{data[0]["latest_data"].SI}</td>
+                  <td>{data[0]["latest_data"].SW}</td>
                   <td>{data[0]["latest_data"].LV}</td>
                   <td>{data[0]["latest_data"].LI}</td>
+                  <td>{data[0]["latest_data"].LW}</td>
 
                   <td>{data[0]["latest_data"].STATE}</td>
                   <td>{data[0]["latest_data"].LAT}</td>
                   <td>{data[0]["latest_data"].LON}</td>
                   <td>{data[0]["latest_data"].CHARGING_STATUS}</td>
                   <td>{data[0]["latest_data"].DAY_NIGHT}</td>
-                  <td>{data[0]["latest_data"].BW}</td>
-                  <td>{data[0]["latest_data"].SW}</td>
-                  <td>{data[0]["latest_data"].LW}</td>
+
                   <td>{data[0]["latest_data"].DATE}</td>
                   <td>{data[0]["latest_data"].TIME_STAMP}</td>
                 </tr>
@@ -174,10 +176,13 @@ const StreetLightTable = () => {
                 <th>ID</th>
                 <th>Battery Voltage</th>
                 <th>Battery Current</th>
+                <th>Battery Wattage</th>
                 <th>Solar Voltage</th>
                 <th>Solar Current</th>
+                <th>Solar Wattage</th>
                 <th>Load Voltage</th>
                 <th>Load Current</th>
+                <th>Load Wattage</th>
 
                 <th>Battery Status</th>
                 <th>Latitude</th>
@@ -185,9 +190,7 @@ const StreetLightTable = () => {
                 <th>Charging Status</th>
 
                 <th>Day/Night</th>
-                <th>Battery Wattage</th>
-                <th>Solar Wattage</th>
-                <th>Load Wattage</th>
+
                 <th>DATE</th>
                 <th>TIME_STAMP</th>
               </tr>
@@ -221,19 +224,20 @@ const StreetLightTable = () => {
 
                     <td>{streetlight.BV}</td>
                     <td>{streetlight.BI}</td>
+                    <td>{streetlight.BW}</td>
                     <td>{streetlight.SV}</td>
                     <td>{streetlight.SI}</td>
+                    <td>{streetlight.SW}</td>
                     <td>{streetlight.LV}</td>
                     <td>{streetlight.LI}</td>
+                    <td>{streetlight.LW}</td>
 
                     <td>{streetlight.STATE}</td>
                     <td>{streetlight.LAT}</td>
                     <td>{streetlight.LON}</td>
                     <td>{streetlight.CHARGING_STATUS}</td>
                     <td>{streetlight.DAY_NIGHT}</td>
-                    <td>{streetlight.BW}</td>
-                    <td>{streetlight.SW}</td>
-                    <td>{streetlight.LW}</td>
+
                     <td>{streetlight.DATE}</td>
                     <td>{streetlight.TIME_STAMP}</td>
                   </tr>
