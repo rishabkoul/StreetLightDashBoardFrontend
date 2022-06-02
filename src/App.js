@@ -10,13 +10,14 @@ function App() {
       <Card center_text="true">
         <h1>Street Light Dashboard</h1>
       </Card>
+
+      <Card>
+        <StreetLightTable />
+      </Card>
       <div className="flex-container">
         <Card>
-          <StreetLightTable />
-        </Card>
-        <Card>
           <PieChartComponent
-            heading="No of Devices with States Ok vs Not Ok"
+            heading="No of Devices with Battery Status Ok vs Not Ok"
             url="https://streetlightdashboardbackend.herokuapp.com/api/get_all_states"
             collection="states"
           />
@@ -31,14 +32,15 @@ function App() {
             </div>
           </div>
         </Card>
+
+        <Card>
+          <MapComponent
+            heading="Devices with Battery Status Ok vs Not Ok (Red - Not Ok , Green - Ok)"
+            url="https://streetlightdashboardbackend.herokuapp.com/api/get_all_states_with_lon_lat"
+            collection="states_with_lon_lat"
+          />
+        </Card>
       </div>
-      <Card>
-        <MapComponent
-          heading="Devices with States Ok vs Not Ok (Red - Not Ok , Green - Ok)"
-          url="https://streetlightdashboardbackend.herokuapp.com/api/get_all_states_with_lon_lat"
-          collection="states_with_lon_lat"
-        />
-      </Card>
     </div>
   );
 }

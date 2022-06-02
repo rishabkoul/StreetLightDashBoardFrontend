@@ -2,6 +2,27 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import styles from "./StreetLightTable.module.css";
 import { CSVLink } from "react-csv";
 
+const csvheaders = [
+  { label: "ID", key: "ID" },
+  { label: "Battery Voltage", key: "BV" },
+  { label: "Battery Current", key: "BI" },
+  { label: "Solar Voltage", key: "SV" },
+  { label: "Solar Current", key: "SI" },
+  { label: "Load Voltage", key: "LV" },
+  { label: "Load Current", key: "LI" },
+  // { label: 'Battery Current', key: 'BI' },
+  { label: "Battery Status", key: "STATE" },
+  { label: "Latitude", key: "LAT" },
+  { label: "Longitude", key: "LON" },
+  { label: "Charging Status", key: "CHARGING_STATUS" },
+  { label: "Day/Night", key: "DAY_NIGHT" },
+  { label: "Battery Wattage", key: "BW" },
+  { label: "Solar Wattage", key: "SW" },
+  { label: "Load Wattage", key: "LW" },
+  { label: "Date", key: "DATE" },
+  { label: "Time Stamp", key: "TIME_STAMP" },
+];
+
 const StreetLightTable = () => {
   const [data, setData] = useState();
   const [pageno, setPageNo] = useState(1);
@@ -81,18 +102,21 @@ const StreetLightTable = () => {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>BV</th>
-                  <th>BI</th>
-                  <th>SV</th>
-                  <th>SI</th>
-                  <th>LV</th>
-                  <th>LI</th>
-                  <th>BA</th>
-                  <th>STATE</th>
-                  <th>LAT</th>
-                  <th>LON</th>
-                  <th>DRY_BIN</th>
-                  <th>WET_BIN</th>
+                  <th>Battery Voltage</th>
+                  <th>Battery Current</th>
+                  <th>Solar Voltage</th>
+                  <th>Solar Current</th>
+                  <th>Load Voltage</th>
+                  <th>Load Current</th>
+
+                  <th>Battery Status</th>
+                  <th>Latitude</th>
+                  <th>Longitude</th>
+                  <th>Charging Status</th>
+                  <th>Day/Night</th>
+                  <th>Battery Wattage</th>
+                  <th>Solar Wattage</th>
+                  <th>Load Wattage</th>
                   <th>DATE</th>
                   <th>TIME_STAMP</th>
                 </tr>
@@ -106,12 +130,15 @@ const StreetLightTable = () => {
                   <td>{data[0]["latest_data"].SI}</td>
                   <td>{data[0]["latest_data"].LV}</td>
                   <td>{data[0]["latest_data"].LI}</td>
-                  <td>{data[0]["latest_data"].BA}</td>
+
                   <td>{data[0]["latest_data"].STATE}</td>
                   <td>{data[0]["latest_data"].LAT}</td>
                   <td>{data[0]["latest_data"].LON}</td>
-                  <td>{data[0]["latest_data"].DRY_BIN}</td>
-                  <td>{data[0]["latest_data"].WET_BIN}</td>
+                  <td>{data[0]["latest_data"].CHARGING_STATUS}</td>
+                  <td>{data[0]["latest_data"].DAY_NIGHT}</td>
+                  <td>{data[0]["latest_data"].BW}</td>
+                  <td>{data[0]["latest_data"].SW}</td>
+                  <td>{data[0]["latest_data"].LW}</td>
                   <td>{data[0]["latest_data"].DATE}</td>
                   <td>{data[0]["latest_data"].TIME_STAMP}</td>
                 </tr>
@@ -145,18 +172,22 @@ const StreetLightTable = () => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>BV</th>
-                <th>BI</th>
-                <th>SV</th>
-                <th>SI</th>
-                <th>LV</th>
-                <th>LI</th>
-                <th>BA</th>
-                <th>STATE</th>
-                <th>LAT</th>
-                <th>LON</th>
-                <th>DRY_BIN</th>
-                <th>WET_BIN</th>
+                <th>Battery Voltage</th>
+                <th>Battery Current</th>
+                <th>Solar Voltage</th>
+                <th>Solar Current</th>
+                <th>Load Voltage</th>
+                <th>Load Current</th>
+
+                <th>Battery Status</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Charging Status</th>
+
+                <th>Day/Night</th>
+                <th>Battery Wattage</th>
+                <th>Solar Wattage</th>
+                <th>Load Wattage</th>
                 <th>DATE</th>
                 <th>TIME_STAMP</th>
               </tr>
@@ -194,12 +225,15 @@ const StreetLightTable = () => {
                     <td>{streetlight.SI}</td>
                     <td>{streetlight.LV}</td>
                     <td>{streetlight.LI}</td>
-                    <td>{streetlight.BA}</td>
+
                     <td>{streetlight.STATE}</td>
                     <td>{streetlight.LAT}</td>
                     <td>{streetlight.LON}</td>
-                    <td>{streetlight.DRY_BIN}</td>
-                    <td>{streetlight.WET_BIN}</td>
+                    <td>{streetlight.CHARGING_STATUS}</td>
+                    <td>{streetlight.DAY_NIGHT}</td>
+                    <td>{streetlight.BW}</td>
+                    <td>{streetlight.SW}</td>
+                    <td>{streetlight.LW}</td>
                     <td>{streetlight.DATE}</td>
                     <td>{streetlight.TIME_STAMP}</td>
                   </tr>
@@ -247,6 +281,7 @@ const StreetLightTable = () => {
                   "0"
                 )},${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}.csv`}
                 data={wholeData[0]["Streetlights"]}
+                headers={csvheaders}
               >
                 <button className={styles.downloadButton} type="button">
                   Download Data
