@@ -36,7 +36,7 @@ function addMarkers(lonLatArray) {
 }
 
 const MapComponent = ({ heading, url, collection }) => {
-  const center = [77.094742, 28.502879];
+  const [center, setCenter] = useState();
   const zoom = 12;
 
   const [features, setFeatures] = useState();
@@ -44,7 +44,13 @@ const MapComponent = ({ heading, url, collection }) => {
   const getData = useCallback(() => {
     fetch(url)
       .then((response) => response.json())
-      .then((actualData) => setFeatures(addMarkers(actualData[0][collection])));
+      .then((actualData) => {
+        setFeatures(addMarkers(actualData[0][collection]));
+        setCenter([
+          actualData[0]["centroid"][0][0],
+          actualData[0]["centroid"][0][1],
+        ]);
+      });
   }, [url, collection]);
 
   useEffect(() => {
