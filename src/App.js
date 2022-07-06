@@ -16,7 +16,7 @@ function App() {
       </Card>
 
       <Card>
-        <StreetLightTable />
+        <StreetLightTable baseUrl="https://streetlightdashboardbackend.herokuapp.com" />
       </Card>
       <div className="flex-container">
         <Card>

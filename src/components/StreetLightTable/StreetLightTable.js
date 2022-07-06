@@ -23,13 +23,13 @@ const csvheaders = [
   { label: "Time Stamp", key: "TIME_STAMP" },
 ];
 
-const StreetLightTable = () => {
+const StreetLightTable = ({ baseUrl }) => {
   const [data, setData] = useState();
   const [pageno, setPageNo] = useState(1);
   const [gotopage, setGoToPage] = useState();
   const [query, setQuery] = useState("");
   const [url, setUrl] = useState(
-    "https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=40"
+    `${baseUrl}/api/get_all?no_of_results_per_page=40`
   );
   const [lightId, setLightId] = useState("");
   const [wholeData, setWholeData] = useState();
@@ -43,13 +43,13 @@ const StreetLightTable = () => {
   const getWholeData = useCallback(async () => {
     let urlToFetch;
     if (lightId === "") {
-      urlToFetch = `https://streetlightdashboardbackend.herokuapp.com/api/get_all_data_without_pagination?query=${query}`;
+      urlToFetch = `${baseUrl}/api/get_all_data_without_pagination?query=${query}`;
     } else {
-      urlToFetch = `https://streetlightdashboardbackend.herokuapp.com/api/get_all_historical_data_without_pagination?query=${query}&light_id=${lightId}`;
+      urlToFetch = `${baseUrl}/api/get_all_historical_data_without_pagination?query=${query}&light_id=${lightId}`;
     }
     const response = await fetch(`${urlToFetch}`);
     setWholeData(await response.json());
-  }, [query, lightId]);
+  }, [baseUrl, query, lightId]);
 
   const goToPage = (e) => {
     e.preventDefault();
@@ -79,17 +79,14 @@ const StreetLightTable = () => {
   return (
     <div>
       <h3>Street Light Table</h3>
-      {url !==
-      "https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=40" ? (
+      {url !== `${baseUrl}/api/get_all?no_of_results_per_page=40` ? (
         <div>
           <button
             type="button"
             onClick={(e) => {
               setData(null);
               setPageNo(1);
-              setUrl(
-                "https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=40"
-              );
+              setUrl(`${baseUrl}/api/get_all?no_of_results_per_page=40`);
               setLightId("");
             }}
           >
@@ -200,7 +197,7 @@ const StreetLightTable = () => {
                 return (
                   <tr key={streetlight.DATE + streetlight.TIME_STAMP}>
                     {url !==
-                    `https://streetlightdashboardbackend.herokuapp.com/api/get_all?no_of_results_per_page=40` ? (
+                    `${baseUrl}/api/get_all?no_of_results_per_page=40` ? (
                       <td>{streetlight.ID}</td>
                     ) : (
                       <td>
@@ -212,7 +209,7 @@ const StreetLightTable = () => {
                             setData(null);
                             setPageNo(1);
                             setUrl(
-                              `https://streetlightdashboardbackend.herokuapp.com/api/get_all_historical_data?no_of_results_per_page=40&light_id=${streetlight.ID}`
+                              `${baseUrl}/api/get_all_historical_data?no_of_results_per_page=40&light_id=${streetlight.ID}`
                             );
                             setLightId(`${streetlight.ID}`);
                           }}
