@@ -16,13 +16,13 @@ function App() {
       </Card>
 
       <Card>
-        <StreetLightTable baseUrl="https://streetlightdashboardbackend.herokuapp.com" />
+        <StreetLightTable baseUrl="https://street-light-dash-board-backend.vercel.app" />
       </Card>
       <div className="flex-container">
         <Card>
           <PieChartComponent
             heading="No of Devices with Battery Status Ok vs Not Ok"
-            url="https://streetlightdashboardbackend.herokuapp.com/api/get_all_states"
+            url="https://street-light-dash-board-backend.vercel.app/api/get_all_states"
             collection="states"
           />
           <div className="states_legend">
@@ -40,7 +40,7 @@ function App() {
         <Card>
           <MapComponent
             heading="Devices with Battery Status Ok vs Not Ok (Red - Not Ok , Green - Ok)"
-            url="https://streetlightdashboardbackend.herokuapp.com/api/get_all_states_with_lon_lat"
+            url="https://street-light-dash-board-backend.vercel.app/api/get_all_states_with_lon_lat"
             collection="states_with_lon_lat"
           />
         </Card>
